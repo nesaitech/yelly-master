@@ -1,0 +1,12 @@
+depth: moderate
+include_architecture: true
+include_setup_guide: true
+include_key_files: true
+max_depth_levels: 3
+permissions:
+  tools: [Read, Grep, Glob, Bash]
+  bash_commands: ["git log *", "find *", "wc *"]
+  file_access:
+    - read: "**/*"
+    - write: "docs/onboarding/*"
+  dangerous: []

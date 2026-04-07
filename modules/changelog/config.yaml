@@ -1,0 +1,13 @@
+format: keep-a-changelog
+include_breaking: true
+conventional_commits: true
+auto_version_bump: false
+permissions:
+  tools: [Bash, Read, Write, Edit]
+  bash_commands: ["git log *", "git tag *", "git diff *"]
+  file_access:
+    - read: "**/*"
+    - write: "CHANGELOG.md"
+    - write: "VERSION"
+  dangerous:
+    - "git tag"

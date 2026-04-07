@@ -1,0 +1,11 @@
+lookback_days: 7
+include_metrics: true
+include_per_author: true
+track_action_items: true
+permissions:
+  tools: [Bash, Read, Grep]
+  bash_commands: ["git log *", "git shortlog *", "git diff *"]
+  file_access:
+    - read: "**/*"
+    - write: "docs/retros/*"
+  dangerous: []

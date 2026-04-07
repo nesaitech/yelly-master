@@ -1,0 +1,14 @@
+format: markdown
+include_examples: true
+check_accuracy: true
+auto_generate_api_docs: false
+permissions:
+  tools: [Read, Write, Edit, Grep, Glob, Bash]
+  bash_commands: ["npx typedoc *", "git log *", "git diff *"]
+  file_access:
+    - read: "**/*"
+    - write: "docs/**/*"
+    - write: "README.md"
+    - write: "CONTRIBUTING.md"
+    - write: "ARCHITECTURE.md"
+  dangerous: []
