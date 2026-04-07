@@ -1,0 +1,14 @@
+auto_fix: true
+retry_on_flaky: true
+max_retry: 2
+platforms:
+  - github-actions
+  - gitlab-ci
+permissions:
+  tools: [Read, Grep, Glob, Edit, Bash]
+  bash_commands: ["git log *", "git diff *", "cat .github/workflows/*"]
+  file_access:
+    - read: "**/*"
+    - write: ".github/workflows/*"
+    - write: ".gitlab-ci.yml"
+  dangerous: []

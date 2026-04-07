@@ -1,0 +1,14 @@
+base_image: node:20-alpine
+multi_stage: true
+scan_security: true
+optimize_layers: true
+permissions:
+  tools: [Read, Write, Edit, Bash]
+  bash_commands: ["docker build *", "docker compose *", "docker ps *", "docker logs *"]
+  file_access:
+    - read: "**/*"
+    - write: "Dockerfile"
+    - write: "docker-compose.yml"
+    - write: ".dockerignore"
+  dangerous:
+    - "docker system prune"

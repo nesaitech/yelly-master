@@ -1,0 +1,16 @@
+auto_detect: true
+warn_missing: true
+check_git_secrets: true
+platforms:
+  - vercel
+  - fly
+  - aws
+  - heroku
+permissions:
+  tools: [Read, Grep, Glob, Bash]
+  bash_commands: ["vercel env *", "fly secrets *", "printenv *"]
+  file_access:
+    - read: "**/*"
+    - write: ".env.example"
+  dangerous:
+    - "modify production env vars"

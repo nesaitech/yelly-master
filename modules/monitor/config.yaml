@@ -1,0 +1,11 @@
+check_interval: 30s
+max_duration: 5m
+screenshot: true
+error_threshold: 5
+latency_threshold_ms: 2000
+permissions:
+  tools: [Bash, Read]
+  bash_commands: ["curl *", "wget *"]
+  file_access:
+    - read: "**/*"
+  dangerous: []

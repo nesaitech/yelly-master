@@ -1,0 +1,19 @@
+platform: auto-detect
+production_url: ""
+health_check_endpoint: /api/health
+deploy_command: ""
+pre_deploy_checks:
+  - tests
+  - lint
+rollback_strategy: auto
+permissions:
+  tools: [Bash, Read, Write, Edit]
+  bash_commands: ["npm run build *", "git push *", "git tag *", "vercel *", "fly deploy *", "docker build *"]
+  file_access:
+    - read: "**/*"
+    - write: "vercel.json"
+    - write: "fly.toml"
+    - write: "Dockerfile"
+  dangerous:
+    - "git push"
+    - "deploy to production"
