@@ -10,38 +10,20 @@ Works with **Claude Code**, **Codex CLI**, **Cursor**, **Windsurf**, and **Kiro*
 git clone git@github.com:nesaitech/yelly-master.git
 cd yelly-master
 npm install
-./setup  # coming in Phase 4
+./setup
 ```
 
-## Manual Setup (Phase 1)
+The setup script will:
+- Detect installed AI hosts (Claude Code, Codex, Cursor, Windsurf, Kiro)
+- Create symlinks and generate skill files for each host
+- Register safe permissions automatically
+- Initialize user config at `~/.yelly-master/config.yaml`
 
-Until the setup script is ready, you can install manually:
-
-```bash
-# 1. Clone
-git clone git@github.com:nesaitech/yelly-master.git
-cd yelly-master
-
-# 2. Install dependencies
-npm install
-
-# 3. Verify everything works
-npm test              # 61 tests should pass
-npx tsc --noEmit      # TypeScript should compile clean
-
-# 4. Link skills to your AI host (example: Claude Code)
-mkdir -p ~/.claude/skills/yelly-master
-ln -sf "$(pwd)/skills" ~/.claude/skills/yelly-master/skills
-ln -sf "$(pwd)/modules" ~/.claude/skills/yelly-master/modules
-ln -sf "$(pwd)/bin" ~/.claude/skills/yelly-master/bin
-
-# 5. Generate SKILL.md files from templates
-npm run gen:skills
-
-# 6. Initialize config
-mkdir -p ~/.yelly-master
-cp config/defaults.yaml ~/.yelly-master/config.yaml
-```
+After setup, restart your AI agent session. You'll have access to:
+- `/yelly-code` — debug, review, refactor, plan
+- `/yelly-ops` — ci, deploy, monitor, env, docker
+- `/yelly-quality` — test, security, perf, qa, lint, health
+- `/yelly-team` — doc, retro, onboard, changelog
 
 ## Architecture
 
@@ -52,7 +34,7 @@ yelly-master/
 │   ├── yelly-ops/    #   ci, deploy, monitor, env, docker
 │   ├── yelly-quality/#   test, security, perf, qa, lint, health
 │   └── yelly-team/   #   doc, retro, onboard, changelog
-├── modules/          # 20 internal knowledge modules (loaded on-demand)
+├── modules/          # 19 internal knowledge modules (loaded on-demand)
 ├── lib/              # Core TypeScript library
 ├── bin/              # CLI tools
 ├── scripts/          # Build & template generation
@@ -129,13 +111,28 @@ npm run gen:skills -- --dry-run       # preview without writing
 
 Config directory (`~/.yelly-master/`) is shared across all hosts.
 
+## Modules
+
+19 knowledge modules across 4 mega-skills:
+
+| yelly-code | yelly-ops | yelly-quality | yelly-team |
+|-----------|----------|--------------|-----------|
+| debug | ci | test | doc |
+| review | deploy | security | retro |
+| refactor | monitor | perf | onboard |
+| plan | env | qa | changelog |
+| | docker | lint | |
+| | | health | |
+
+Each module contains: `guide.md` (methodology), `patterns.md` (reference), `config.yaml` (permissions + settings), `prompts/` (scenario-specific), `hooks/` (pre/post scripts).
+
 ## Roadmap
 
-- [x] **Phase 1: Foundation** — core lib, CLI binaries, template engine
-- [ ] **Phase 2: Modules** — 20 knowledge modules with guides, patterns, prompts
-- [ ] **Phase 3: Mega-Skills** — 4 SKILL.md.tmpl files with routing + permission pre-request
-- [ ] **Phase 4: Setup Script** — multi-host install, symlinks, permission registration
-- [ ] **Phase 5: Testing & CI** — integration tests, e2e tests, GitHub Actions
+- [x] **Phase 1: Foundation** — core lib, CLI binaries, template engine (61 tests)
+- [x] **Phase 2: Modules** — 19 knowledge modules with guides, patterns, prompts
+- [x] **Phase 3: Mega-Skills** — 4 SKILL.md.tmpl files with routing + permission pre-request
+- [x] **Phase 4: Setup Script** — multi-host install, symlinks, permission registration
+- [x] **Phase 5: CI/CD** — GitHub Actions pipeline (static, unit, typecheck, skills, modules)
 
 ## License
 
