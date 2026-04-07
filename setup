@@ -62,13 +62,17 @@ fi
 echo ""
 
 # ─── Host definitions ───
-# Each host: name, config dir, has settings.json
-declare -A HOST_DIRS
-HOST_DIRS[claude]="$HOME/.claude"
-HOST_DIRS[codex]="$HOME/.codex"
-HOST_DIRS[cursor]="$HOME/.cursor"
-HOST_DIRS[windsurf]="$HOME/.windsurf"
-HOST_DIRS[kiro]="$HOME/.kiro"
+# Helper to get host dir (compatible with bash 3.x — no associative arrays)
+get_host_dir() {
+  case "$1" in
+    claude)   echo "$HOME/.claude" ;;
+    codex)    echo "$HOME/.codex" ;;
+    cursor)   echo "$HOME/.cursor" ;;
+    windsurf) echo "$HOME/.windsurf" ;;
+    kiro)     echo "$HOME/.kiro" ;;
+    *)        echo "" ;;
+  esac
+}
 
 # Hosts that use settings.json for permissions
 SETTINGS_HOSTS=("claude" "codex" "kiro")
@@ -79,7 +83,7 @@ step "Detecting installed AI hosts..."
 DETECTED_HOSTS=()
 
 for host in claude codex cursor windsurf kiro; do
-  host_dir="${HOST_DIRS[$host]}"
+  host_dir="$(get_host_dir "$host")"
   if [[ "$host" == "claude" ]]; then
     if [[ -f "$host_dir/settings.json" ]]; then
       DETECTED_HOSTS+=("$host")
@@ -185,7 +189,7 @@ ensure_symlink() {
 generate_skill_md() {
   local skill_name="$1"
   local host="$2"
-  local host_dir="${HOST_DIRS[$host]}"
+  local host_dir="$(get_host_dir "$host")"
   local skills_root="$host_dir/skills/yelly-master/skills"
   local modules_root="$host_dir/skills/yelly-master/modules"
   local bin_root="$host_dir/skills/yelly-master/bin"
@@ -196,9 +200,11 @@ generate_skill_md() {
     return 1
   fi
 
-  # Build the preamble
-  local preamble
-  preamble="<!-- yelly-master v${VERSION} | host: ${host} -->
+  # Build the preamble into a temp file
+  local preamble_file
+  preamble_file="$(mktemp)"
+  cat > "$preamble_file" <<EOPREAMBLE
+<!-- yelly-master v${VERSION} | host: ${host} -->
 <!-- Generated file — do not edit. Edit SKILL.md.tmpl instead. -->
 
 **Before starting any work:**
@@ -216,22 +222,24 @@ ${bin_root}/yelly-repo-mode
 3. Load user config:
 \`\`\`bash
 ${bin_root}/yelly-config get update.notify
-\`\`\`"
+\`\`\`
+EOPREAMBLE
 
-  # Read template and resolve placeholders
-  local content
-  content="$(cat "$tmpl")"
+  # Use node for reliable multiline placeholder replacement
+  node -e "
+    const fs = require('fs');
+    let content = fs.readFileSync('$tmpl', 'utf8');
+    const preamble = fs.readFileSync('$preamble_file', 'utf8');
+    content = content.replace(/\{\{PREAMBLE\}\}/g, preamble.trimEnd());
+    content = content.replace(/\{\{MODULES_ROOT\}\}/g, '${modules_root}');
+    content = content.replace(/\{\{BIN_ROOT\}\}/g, '${bin_root}');
+    content = content.replace(/\{\{SKILLS_ROOT\}\}/g, '${skills_root}');
+    content = content.replace(/\{\{VERSION\}\}/g, '${VERSION}');
+    content = content.replace(/\{\{HOST\}\}/g, '${host}');
+    process.stdout.write(content);
+  "
 
-  # Replace placeholders
-  # Use awk to handle multi-line preamble replacement
-  content="$(echo "$content" | awk -v preamble="$preamble" '{gsub(/\{\{PREAMBLE\}\}/, preamble); print}')"
-  content="$(echo "$content" | sed "s|{{MODULES_ROOT}}|${modules_root}|g")"
-  content="$(echo "$content" | sed "s|{{BIN_ROOT}}|${bin_root}|g")"
-  content="$(echo "$content" | sed "s|{{SKILLS_ROOT}}|${skills_root}|g")"
-  content="$(echo "$content" | sed "s|{{VERSION}}|${VERSION}|g")"
-  content="$(echo "$content" | sed "s|{{HOST}}|${host}|g")"
-
-  echo "$content"
+  rm -f "$preamble_file"
 }
 
 # ─── Helper: merge permissions into settings.json ───
@@ -297,7 +305,7 @@ INSTALLED_HOSTS=()
 
 for host in "${SELECTED_HOSTS[@]}"; do
   step "Installing for ${host}..."
-  host_dir="${HOST_DIRS[$host]}"
+  host_dir="$(get_host_dir "$host")"
 
   # a. Create yelly-master skills dir
   master_skills_dir="$host_dir/skills/yelly-master"
@@ -402,7 +410,7 @@ echo -e "  ${BOLD}Sessions:${NC}    $USER_CONFIG_DIR/sessions/"
 echo ""
 
 for host in "${INSTALLED_HOSTS[@]}"; do
-  host_dir="${HOST_DIRS[$host]}"
+  host_dir="$(get_host_dir "$host")"
   echo -e "  ${BOLD}${host}:${NC}"
   echo -e "    Shared:  $host_dir/skills/yelly-master/"
   for skill in "${SKILLS[@]}"; do
