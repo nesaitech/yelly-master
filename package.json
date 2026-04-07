@@ -1,0 +1,29 @@
+{
+  "name": "yelly-master",
+  "version": "0.1.0",
+  "description": "AI Engineering Copilot Plugin — all-in-one senior engineer for debugging, review, testing, deployment, and collaboration",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:static": "vitest run test/static/",
+    "test:unit": "vitest run test/unit/",
+    "gen:skills": "node --loader ts-node/esm scripts/gen-skill-docs.ts",
+    "yelly-config": "node --loader ts-node/esm bin/yelly-config.ts",
+    "yelly-update-check": "node --loader ts-node/esm bin/yelly-update-check.ts",
+    "yelly-repo-mode": "node --loader ts-node/esm bin/yelly-repo-mode.ts"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "fast-glob": "^3.3.3",
+    "js-yaml": "^4.1.1"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^25.5.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.2"
+  }
+}
