@@ -1,0 +1,103 @@
+# config/defaults.yaml
+debug:
+  max_attempts: 3
+  auto_rollback: true
+
+review:
+  strictness: moderate
+  max_file_size: 500
+  check_patterns:
+    - security
+    - performance
+    - error-handling
+    - naming
+    - dry
+  auto_approve: false
+
+refactor:
+  preserve_tests: true
+  max_changes_per_commit: 5
+
+plan:
+  detail_level: high
+  include_tests: true
+
+ci:
+  auto_fix: true
+  retry_on_flaky: true
+
+deploy:
+  platform: auto-detect
+  health_check_endpoint: /api/health
+  pre_deploy_checks:
+    - tests
+    - lint
+  rollback_strategy: auto
+
+monitor:
+  check_interval: 30s
+  max_duration: 5m
+  screenshot: true
+
+env:
+  auto_detect: true
+  warn_missing: true
+
+docker:
+  base_image: node:20-alpine
+  multi_stage: true
+
+test:
+  framework: auto-detect
+  coverage_threshold: 80
+  style: unit-first
+  tdd: false
+  mock_strategy: minimal
+  parallel: true
+
+security:
+  scan_dependencies: true
+  check_secrets: true
+  owasp_top_10: true
+
+perf:
+  lighthouse: true
+  bundle_analysis: true
+  threshold_lcp: 2500
+
+qa:
+  browser: chromium
+  viewport: "1280x720"
+  screenshot_on_fail: true
+
+lint:
+  auto_fix: true
+  respect_config: true
+
+health:
+  include_modules:
+    - test
+    - lint
+    - security
+
+doc:
+  format: markdown
+  include_examples: true
+
+retro:
+  lookback_days: 7
+  include_metrics: true
+
+onboard:
+  depth: moderate
+  include_architecture: true
+
+changelog:
+  format: keep-a-changelog
+  include_breaking: true
+
+update:
+  auto_upgrade: false
+  check_interval: 24h
+  channel: stable
+  notify: true
