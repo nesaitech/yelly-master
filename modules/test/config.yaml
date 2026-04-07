@@ -1,0 +1,17 @@
+framework: auto-detect
+coverage_threshold: 80
+style: unit-first
+tdd: false
+snapshot_testing: false
+mock_strategy: minimal
+parallel: true
+permissions:
+  tools: [Bash, Read, Write, Edit, Grep, Glob]
+  bash_commands: ["npm test *", "npx vitest *", "npx jest *", "npx pytest *", "go test *"]
+  file_access:
+    - read: "**/*"
+    - write: "test/**/*"
+    - write: "tests/**/*"
+    - write: "__tests__/**/*"
+    - write: "src/**/*.test.*"
+  dangerous: []

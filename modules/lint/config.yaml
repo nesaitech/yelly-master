@@ -1,0 +1,15 @@
+auto_fix: true
+respect_config: true
+check_formatting: true
+tools_priority:
+  - biome
+  - eslint
+  - prettier
+permissions:
+  tools: [Bash, Read, Edit, Grep, Glob]
+  bash_commands: ["npx eslint *", "npx prettier *", "npx biome *", "npx ruff *"]
+  file_access:
+    - read: "**/*"
+    - write: "src/**/*"
+    - write: "lib/**/*"
+  dangerous: []

@@ -1,0 +1,12 @@
+browser: chromium
+viewport: "1280x720"
+screenshot_on_fail: true
+check_console_errors: true
+check_a11y: true
+permissions:
+  tools: [Bash, Read]
+  bash_commands: ["npx playwright *", "curl *"]
+  file_access:
+    - read: "**/*"
+    - write: "test/screenshots/*"
+  dangerous: []

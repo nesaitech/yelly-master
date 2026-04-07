@@ -1,0 +1,10 @@
+scan_dependencies: true
+check_secrets: true
+owasp_top_10: true
+severity_threshold: medium
+permissions:
+  tools: [Bash, Read, Grep, Glob]
+  bash_commands: ["npm audit *", "git log *", "grep -r *"]
+  file_access:
+    - read: "**/*"
+  dangerous: []

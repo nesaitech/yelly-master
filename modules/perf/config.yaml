@@ -1,0 +1,11 @@
+lighthouse: true
+bundle_analysis: true
+threshold_lcp: 2500
+threshold_fid: 100
+threshold_cls: 0.1
+permissions:
+  tools: [Bash, Read, Grep, Glob]
+  bash_commands: ["npx lighthouse *", "npx webpack-bundle-analyzer *", "npm run build *"]
+  file_access:
+    - read: "**/*"
+  dangerous: []

@@ -1,0 +1,16 @@
+include_modules:
+  - test
+  - lint
+  - security
+weights:
+  test: 30
+  lint: 20
+  types: 20
+  security: 15
+  dead_code: 15
+permissions:
+  tools: [Bash, Read, Grep, Glob]
+  bash_commands: ["npm test *", "npx eslint *", "npx tsc *", "npm audit *"]
+  file_access:
+    - read: "**/*"
+  dangerous: []
