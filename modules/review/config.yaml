@@ -1,0 +1,23 @@
+strictness: moderate
+max_file_size: 500
+check_patterns:
+  - security
+  - performance
+  - error-handling
+  - naming
+  - dry
+auto_approve: false
+custom_rules: []
+permissions:
+  tools:
+    - Read
+    - Grep
+    - Glob
+    - Bash
+  bash_commands:
+    - "git diff *"
+    - "git log *"
+    - "git show *"
+  file_access:
+    - read: "**/*"
+  dangerous: []

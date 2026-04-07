@@ -1,0 +1,18 @@
+detail_level: high
+include_tests: true
+max_task_size: "1 commit"
+require_approval: true
+permissions:
+  tools:
+    - Read
+    - Grep
+    - Glob
+    - Bash
+  bash_commands:
+    - "git log *"
+    - "git diff *"
+    - "find *"
+  file_access:
+    - read: "**/*"
+    - write: "docs/**/*"
+  dangerous: []

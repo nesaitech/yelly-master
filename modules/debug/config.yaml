@@ -1,0 +1,24 @@
+max_attempts: 3
+auto_rollback: true
+log_level: verbose
+search_depth: 5
+check_git_blame: true
+permissions:
+  tools:
+    - Bash
+    - Read
+    - Grep
+    - Glob
+    - Edit
+  bash_commands:
+    - "node *"
+    - "npm test *"
+    - "npx vitest *"
+    - "git log *"
+    - "git diff *"
+    - "git blame *"
+  file_access:
+    - read: "**/*"
+    - write: "src/**/*"
+    - write: "test/**/*"
+  dangerous: []

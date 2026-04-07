@@ -1,0 +1,22 @@
+preserve_tests: true
+max_changes_per_commit: 5
+require_tests_before: true
+permissions:
+  tools:
+    - Read
+    - Edit
+    - Grep
+    - Glob
+    - Bash
+  bash_commands:
+    - "npm test *"
+    - "npx vitest *"
+    - "git diff *"
+    - "git add *"
+    - "git commit *"
+  file_access:
+    - read: "**/*"
+    - write: "src/**/*"
+    - write: "lib/**/*"
+    - write: "test/**/*"
+  dangerous: []
