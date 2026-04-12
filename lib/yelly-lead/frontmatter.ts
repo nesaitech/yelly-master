@@ -2,8 +2,8 @@ import { readFileSync, writeFileSync, existsSync, mkdirSync } from "fs";
 import { dirname } from "path";
 import yaml from "js-yaml";
 
-export type FrontmatterValue = string | number | boolean | null;
-export type Frontmatter = Record<string, FrontmatterValue>;
+export type FrontmatterValue = unknown;
+export type Frontmatter = Record<string, unknown>;
 
 const FRONTMATTER_RE = /^---\r?\n([\s\S]*?)\r?\n?---\r?\n?([\s\S]*)$/;
 
@@ -17,14 +17,18 @@ export function parseFrontmatter(content: string): {
   }
   const rawYaml = match[1];
   const body = match[2];
-  let parsed: Frontmatter = {};
-  if (rawYaml.trim().length > 0) {
-    const loaded = yaml.load(rawYaml) as unknown;
-    if (loaded && typeof loaded === "object") {
-      parsed = loaded as Frontmatter;
-    }
+  if (rawYaml.trim().length === 0) {
+    return { frontmatter: {}, body };
   }
-  return { frontmatter: parsed, body };
+  try {
+    const loaded = yaml.load(rawYaml) as unknown;
+    if (loaded && typeof loaded === "object" && !Array.isArray(loaded)) {
+      return { frontmatter: loaded as Frontmatter, body };
+    }
+    return { frontmatter: {}, body };
+  } catch {
+    return { frontmatter: {}, body };
+  }
 }
 
 export function serializeFrontmatter(
@@ -34,6 +38,8 @@ export function serializeFrontmatter(
   if (Object.keys(frontmatter).length === 0) {
     return body;
   }
+  // noCompatMode disables YAML 1.1 back-compat so bare keys like `n`, `y`, `on`, `off`
+  // serialize unquoted. Without it, `{ n: 1 }` dumps as `'n': 1`.
   const yamlBlock = yaml
     .dump(frontmatter, { lineWidth: 120, noCompatMode: true })
     .trimEnd();
@@ -47,8 +53,12 @@ export function readMarkdownWithFrontmatter(filepath: string): {
   if (!existsSync(filepath)) {
     return { frontmatter: {}, body: "" };
   }
-  const content = readFileSync(filepath, "utf-8");
-  return parseFrontmatter(content);
+  try {
+    const content = readFileSync(filepath, "utf-8");
+    return parseFrontmatter(content);
+  } catch {
+    return { frontmatter: {}, body: "" };
+  }
 }
 
 export function writeMarkdownWithFrontmatter(

@@ -45,6 +45,29 @@ Text here.
     expect(frontmatter).toEqual({});
     expect(body).toBe(content);
   });
+
+  it("returns empty frontmatter and body on malformed YAML", () => {
+    // unclosed quote → YAMLException
+    const content = `---\ntitle: "unterminated\n---\n# Body\n`;
+    const { frontmatter, body } = parseFrontmatter(content);
+    expect(frontmatter).toEqual({});
+    expect(body).toBe("# Body\n");
+  });
+
+  it("ignores a frontmatter block that loads to a non-object", () => {
+    const content = `---\njust-a-string\n---\nbody\n`;
+    const { frontmatter, body } = parseFrontmatter(content);
+    expect(frontmatter).toEqual({});
+    expect(body).toBe("body\n");
+  });
+
+  it("preserves nested objects, arrays, and dates from YAML", () => {
+    const content = `---\ntags:\n  - a\n  - b\ndate: 2026-04-13\nnested:\n  key: value\n---\nbody\n`;
+    const { frontmatter } = parseFrontmatter(content);
+    expect(frontmatter.tags).toEqual(["a", "b"]);
+    expect(frontmatter.date).toBeInstanceOf(Date);
+    expect(frontmatter.nested).toEqual({ key: "value" });
+  });
 });
 
 describe("serializeFrontmatter", () => {
@@ -74,6 +97,13 @@ describe("round-trip file IO", () => {
 
   it("returns empty result for missing file", () => {
     const result = readMarkdownWithFrontmatter("/nonexistent/x.md");
+    expect(result.frontmatter).toEqual({});
+    expect(result.body).toBe("");
+  });
+
+  it("returns empty result when read fails (e.g., directory, not file)", () => {
+    // readFileSync on a directory throws EISDIR — must be caught
+    const result = readMarkdownWithFrontmatter(tmpdir());
     expect(result.frontmatter).toEqual({});
     expect(result.body).toBe("");
   });
