@@ -24,23 +24,26 @@ After setup, restart your AI agent session. You'll have access to:
 - `/yelly-ops` — ci, deploy, monitor, env, docker
 - `/yelly-quality` — test, security, perf, qa, lint, health
 - `/yelly-team` — doc, retro, onboard, changelog
+- `/yelly-lead` — adr, debt, estimate, risk *(new in 0.2.0)*
 
 ## Architecture
 
 ```
 yelly-master/
-├── skills/           # 4 mega-skills (user-facing)
+├── skills/           # 5 mega-skills (user-facing)
 │   ├── yelly-code/   #   debug, review, refactor, plan
 │   ├── yelly-ops/    #   ci, deploy, monitor, env, docker
 │   ├── yelly-quality/#   test, security, perf, qa, lint, health
-│   └── yelly-team/   #   doc, retro, onboard, changelog
-├── modules/          # 19 internal knowledge modules (loaded on-demand)
+│   ├── yelly-team/   #   doc, retro, onboard, changelog
+│   └── yelly-lead/   #   adr, debt, estimate, risk
+├── modules/          # 23 internal knowledge modules (loaded on-demand)
+├── templates/        # YELLY.md / ADR / estimate / risk templates
 ├── lib/              # Core TypeScript library
 ├── bin/              # CLI tools
 ├── scripts/          # Build & template generation
 ├── config/           # Default configuration
 ├── migrations/       # Version migration scripts
-└── test/             # Tests (static, unit, integration, e2e)
+└── test/             # Tests (static, unit, integration)
 ```
 
 ### How It Works
@@ -68,13 +71,17 @@ yelly-master/
 # Config management
 npm run yelly-config -- get test.framework
 npm run yelly-config -- set test.tdd true
-npm run yelly-config -- path
 
 # Version check
 npm run yelly-update-check
 
 # Repo mode detection
 npm run yelly-repo-mode
+
+# yelly-lead (project tech-lead context)
+npm run yelly-lead-sync     # regenerate YELLY.md from docs/yelly/ artifacts
+npm run yelly-lead-validate # check YELLY.md schema, ADR filenames
+npm run yelly-lead-stats    # show ADR count, risks, estimate calibration
 ```
 
 ## Development
@@ -113,18 +120,24 @@ Config directory (`~/.yelly-master/`) is shared across all hosts.
 
 ## Modules
 
-19 knowledge modules across 4 mega-skills:
+23 knowledge modules across 5 mega-skills:
 
-| yelly-code | yelly-ops | yelly-quality | yelly-team |
-|-----------|----------|--------------|-----------|
-| debug | ci | test | doc |
-| review | deploy | security | retro |
-| refactor | monitor | perf | onboard |
-| plan | env | qa | changelog |
-| | docker | lint | |
-| | | health | |
+| yelly-code | yelly-ops | yelly-quality | yelly-team | yelly-lead |
+|-----------|----------|--------------|-----------|-----------|
+| debug | ci | test | doc | adr |
+| review | deploy | security | retro | debt |
+| refactor | monitor | perf | onboard | estimate |
+| plan | env | qa | changelog | risk |
+| | docker | lint | | |
+| | | health | | |
 
 Each module contains: `guide.md` (methodology), `patterns.md` (reference), `config.yaml` (permissions + settings), `prompts/` (scenario-specific), `hooks/` (pre/post scripts).
+
+### yelly-lead and YELLY.md
+
+The `/yelly-lead` mega-skill anchors itself in a per-project `YELLY.md` file at the project root. `YELLY.md` captures the Project Snapshot, Active Work, latest ADRs, top risks, top tech debt, decision log, open questions, and pinned notes — auto-generated and updated by yelly-lead modules. Durable artifacts (one ADR per file, estimates, the active risk register) live under `docs/yelly/`.
+
+See [`docs/yelly-lead/OVERVIEW.md`](docs/yelly-lead/OVERVIEW.md) for the user guide and [`docs/yelly-lead/YELLY_MD_SCHEMA.md`](docs/yelly-lead/YELLY_MD_SCHEMA.md) for the schema reference.
 
 ## Roadmap
 
@@ -133,6 +146,8 @@ Each module contains: `guide.md` (methodology), `patterns.md` (reference), `conf
 - [x] **Phase 3: Mega-Skills** — 4 SKILL.md.tmpl files with routing + permission pre-request
 - [x] **Phase 4: Setup Script** — multi-host install, symlinks, permission registration
 - [x] **Phase 5: CI/CD** — GitHub Actions pipeline (static, unit, typecheck, skills, modules)
+- [x] **Phase 6: yelly-lead MVP (0.2.0)** — `/yelly-lead` mega-skill, 4 tech-lead modules, YELLY.md context file, sync/validate/stats CLI, 183 tests
+- [ ] **Phase 7: yelly-lead full** — `requirements`, `api-design`, `data-model` modules; `plan` module refactor to delegate
 
 ## License
 
