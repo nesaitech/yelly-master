@@ -1,0 +1,32 @@
+detail_level: high
+export_to_tracker: auto
+categories:
+  - maintainability
+  - reliability
+  - security
+  - performance
+  - test-coverage
+top_n_in_yelly_md: 5
+permissions:
+  tools:
+    - Read
+    - Grep
+    - Glob
+    - Bash
+    - Edit
+    - Write
+  bash_commands:
+    - "gh issue *"
+    - "glab issue *"
+    - "jira issue *"
+    - "linear issue *"
+    - "git log *"
+    - "git blame *"
+    - "npm outdated *"
+    - "grep -RIn TODO *"
+  file_access:
+    read: "**/*"
+    write: "docs/yelly/debt/**/*"
+    write_extra:
+      - "YELLY.md"
+  dangerous: []
