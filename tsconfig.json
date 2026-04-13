@@ -13,6 +13,6 @@
     "resolveJsonModule": true,
     "sourceMap": true
   },
-  "include": ["lib/**/*.ts", "bin/**/*.ts", "scripts/**/*.ts"],
+  "include": ["lib/**/*.ts", "bin/**/*.ts", "scripts/**/*.ts", "migrations/**/*.ts"],
   "exclude": ["node_modules", "dist", "test"]
 }
