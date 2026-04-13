@@ -4,7 +4,7 @@ Use when a feature has shipped and you want to record the actual time taken.
 
 ## Step 1: Identify the estimate
 
-Ask the user for the estimate ID (e.g., `est-2026-04-12`) or topic name. Find the matching file in `docs/yelly/estimates/`.
+Ask the user for the estimate ID (e.g., `est-2026-04-12`) or topic name. Find the matching file in `docs/8hour/estimates/`.
 
 ## Step 2: Ask for the actual
 
@@ -25,15 +25,15 @@ Set the frontmatter `status: closed`.
 
 ## Step 5: Append to history
 
-Add a line to `.yelly/history/estimates.jsonl`:
+Add a line to `.8hour/history/estimates.jsonl`:
 
 ```json
 {"id":"<id>","topic":"<topic>","estimated":<P50>,"actual":<actual>,"error":<error>,"date":"YYYY-MM-DD"}
 ```
 
-Make sure `.yelly/history/` exists; create it if not. Make sure `.yelly/` is in `.gitignore`.
+Make sure `.8hour/history/` exists; create it if not. Make sure `.8hour/` is in `.gitignore`.
 
-## Step 6: Update YELLY.md
+## Step 6: Update 8HOUR.md
 
 - Remove the entry from `active-work`
 - `appendToSection("decision-log", "- YYYY-MM-DD — Closed <id>: actual <actual>d (P50 was <P50>d)")`
@@ -42,7 +42,7 @@ Make sure `.yelly/history/` exists; create it if not. Make sure `.yelly/` is in 
 ## Step 7: Commit
 
 ```bash
-git add docs/yelly/estimates/<file>.md YELLY.md
+git add docs/8hour/estimates/<file>.md 8HOUR.md
 git commit -m "docs(estimate): close <id> — actual <actual>d"
 ```
 

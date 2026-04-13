@@ -5,13 +5,13 @@ import {
   FROM_VERSION,
   TO_VERSION,
   run,
-} from "../../migrations/v0.2.0-yelly-lead.js";
+} from "../../migrations/v0.2.0-8hour-lead.js";
 
 const ROOT = join(import.meta.dirname, "..", "..");
 
-describe("migrations/v0.2.0-yelly-lead", () => {
+describe("migrations/v0.2.0-8hour-lead", () => {
   it("file exists at expected path", () => {
-    expect(existsSync(join(ROOT, "migrations", "v0.2.0-yelly-lead.ts"))).toBe(
+    expect(existsSync(join(ROOT, "migrations", "v0.2.0-8hour-lead.ts"))).toBe(
       true,
     );
   });
@@ -25,6 +25,6 @@ describe("migrations/v0.2.0-yelly-lead", () => {
     const result = run({ projectRoot: ROOT, installedVersion: "0.1.0" });
     expect(result.applied).toBe(true);
     expect(result.notes.length).toBeGreaterThan(0);
-    expect(result.notes.some((n) => n.includes("yelly-lead"))).toBe(true);
+    expect(result.notes.some((n) => n.includes("8hour-lead"))).toBe(true);
   });
 });

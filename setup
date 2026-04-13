@@ -30,7 +30,7 @@ if [[ ! -f "$PROJECT_ROOT/VERSION" ]]; then
 fi
 
 VERSION="$(cat "$PROJECT_ROOT/VERSION" | tr -d '[:space:]')"
-info "yelly-master v${VERSION} setup"
+info "8hour-master v${VERSION} setup"
 echo ""
 
 # ─── Check prerequisites ───
@@ -144,9 +144,9 @@ info "Installing for: ${SELECTED_HOSTS[*]}"
 echo ""
 
 # ─── Skill names (mega-skills) ───
-SKILLS=("yelly-code" "yelly-ops" "yelly-quality" "yelly-team" "yelly-lead")
+SKILLS=("8hour-code" "8hour-ops" "8hour-quality" "8hour-team" "8hour-lead")
 
-# Directories/files to symlink from project root into host skills/yelly-master/
+# Directories/files to symlink from project root into host skills/8hour-master/
 SYMLINK_DIRS=("skills" "modules" "bin" "lib" "config" "scripts")
 SYMLINK_FILES=("VERSION")
 
@@ -190,9 +190,9 @@ generate_skill_md() {
   local skill_name="$1"
   local host="$2"
   local host_dir="$(get_host_dir "$host")"
-  local skills_root="$host_dir/skills/yelly-master/skills"
-  local modules_root="$host_dir/skills/yelly-master/modules"
-  local bin_root="$host_dir/skills/yelly-master/bin"
+  local skills_root="$host_dir/skills/8hour-master/skills"
+  local modules_root="$host_dir/skills/8hour-master/modules"
+  local bin_root="$host_dir/skills/8hour-master/bin"
   local tmpl="$PROJECT_ROOT/skills/$skill_name/SKILL.md.tmpl"
 
   if [[ ! -f "$tmpl" ]]; then
@@ -204,24 +204,24 @@ generate_skill_md() {
   local preamble_file
   preamble_file="$(mktemp)"
   cat > "$preamble_file" <<EOPREAMBLE
-<!-- yelly-master v${VERSION} | host: ${host} -->
+<!-- 8hour-master v${VERSION} | host: ${host} -->
 <!-- Generated file — do not edit. Edit SKILL.md.tmpl instead. -->
 
 **Before starting any work:**
 
 1. Run update check:
 \`\`\`bash
-${bin_root}/yelly-update-check
+${bin_root}/8hour-update-check
 \`\`\`
 
 2. Detect repo structure:
 \`\`\`bash
-${bin_root}/yelly-repo-mode
+${bin_root}/8hour-repo-mode
 \`\`\`
 
 3. Load user config:
 \`\`\`bash
-${bin_root}/yelly-config get update.notify
+${bin_root}/8hour-config get update.notify
 \`\`\`
 EOPREAMBLE
 
@@ -307,8 +307,8 @@ for host in "${SELECTED_HOSTS[@]}"; do
   step "Installing for ${host}..."
   host_dir="$(get_host_dir "$host")"
 
-  # a. Create yelly-master skills dir
-  master_skills_dir="$host_dir/skills/yelly-master"
+  # a. Create 8hour-master skills dir
+  master_skills_dir="$host_dir/skills/8hour-master"
   mkdir -p "$master_skills_dir"
 
   # b. Symlink key directories
@@ -359,7 +359,7 @@ done
 # ─── Create user config ───
 step "Setting up user configuration..."
 
-USER_CONFIG_DIR="$HOME/.yelly-master"
+USER_CONFIG_DIR="$HOME/.8hour-master"
 mkdir -p "$USER_CONFIG_DIR"
 
 if [[ ! -f "$USER_CONFIG_DIR/config.yaml" ]]; then
@@ -399,7 +399,7 @@ echo ""
 
 # ─── Summary ───
 echo -e "${BOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${GREEN}${BOLD}  yelly-master v${VERSION} installed successfully!${NC}"
+echo -e "${GREEN}${BOLD}  8hour-master v${VERSION} installed successfully!${NC}"
 echo -e "${BOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
 echo -e "  ${BOLD}Hosts:${NC}       ${INSTALLED_HOSTS[*]}"
@@ -412,7 +412,7 @@ echo ""
 for host in "${INSTALLED_HOSTS[@]}"; do
   host_dir="$(get_host_dir "$host")"
   echo -e "  ${BOLD}${host}:${NC}"
-  echo -e "    Shared:  $host_dir/skills/yelly-master/"
+  echo -e "    Shared:  $host_dir/skills/8hour-master/"
   for skill in "${SKILLS[@]}"; do
     echo -e "    Skill:   $host_dir/skills/$skill/SKILL.md"
   done

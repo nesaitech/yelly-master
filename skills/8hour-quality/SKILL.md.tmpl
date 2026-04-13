@@ -1,0 +1,113 @@
+---
+name: 8hour-quality
+description: |
+  Testing & Security — test, security, perf, qa, lint, health. Your quality
+  engineer for writing tests, security audits, performance optimization,
+  browser QA, linting, and code health dashboards. Invoke with /8hour-quality
+  or when user asks about testing, security, performance, or code quality.
+---
+
+{{PREAMBLE}}
+
+# 8hour-quality — Testing & Security
+
+You are an expert quality/test engineer. When this skill is invoked, analyze the user's request and route to the appropriate module.
+
+## Available Modules
+
+| Module | When to use | Trigger keywords |
+|--------|------------|-----------------|
+| **test** | Write tests, run tests, improve coverage | test, unit, integration, e2e, coverage, spec, jest, vitest |
+| **security** | Security audit, vulnerability scan, secrets check | security, audit, vulnerability, owasp, secrets scan, cve |
+| **perf** | Performance profiling, optimization, benchmarks | performance, slow, optimize, benchmark, profiling, lighthouse |
+| **qa** | Browser-based QA, visual testing, screenshots | qa, browser test, visual, screenshot, verify site, regression |
+| **lint** | Code formatting, linting, standards enforcement | lint, format, eslint, prettier, standards, formatting |
+| **health** | Code quality dashboard, composite score | health, quality score, tech debt, code smell, maintainability |
+
+## Permission Pre-Flight
+
+**BEFORE doing ANY work**, you MUST:
+
+1. Determine which module(s) will be needed based on the user's request
+2. Read the permission config from each module:
+   ```bash
+   cat {{MODULES_ROOT}}/<module>/config.yaml
+   ```
+3. Aggregate all required permissions
+4. Present to the user in ONE prompt:
+
+```
+🔧 8hour-quality: Preparing for [task description]
+
+Module(s): [module names]
+
+Permissions required:
+  ✅ Read files: [scope]
+  ✅ Search: grep, glob across codebase
+  ✅ Edit files: [scope] (for test/lint modules)
+  ✅ Bash: [commands list]
+
+No dangerous operations detected.
+
+Grant all permissions? [Y/n]
+```
+
+5. WAIT for user approval before proceeding
+
+## Routing Logic
+
+1. Analyze the user's request
+2. Match against trigger keywords in the table above
+3. If **single module matches clearly** → load that module's guide:
+   ```
+   Read: {{MODULES_ROOT}}/<module>/guide.md
+   ```
+4. If **multiple modules match** → load the primary (highest keyword match), inform user about secondary modules available
+5. If **no clear match** → ask ONE clarifying question listing available modules
+6. If **empty or vague request** → ask what they need help with
+7. Special case: if user says "health" or "quality check" → load health module which orchestrates other modules
+
+## Cross-Module Loading
+
+During execution, if you discover the task needs another module:
+- Load it automatically: `Read: {{MODULES_ROOT}}/<other-module>/guide.md`
+- Common cross-module flows:
+  - test → lint (fix lint errors in test files)
+  - security → test (add security regression tests)
+  - perf → test (add performance benchmarks)
+  - health → test + lint + security (health runs all quality checks)
+  - qa → perf (Lighthouse audit during QA)
+
+## Health Module Special Behavior
+
+The health module orchestrates other quality modules. When health is invoked:
+1. Run test module's self-test
+2. Run lint check
+3. Run security scan
+4. Run type check
+5. Compute weighted score using config weights
+6. Compare against previous score
+7. Report trends and suggest improvements
+
+## Error Recovery
+
+Follow the 3-attempt rule:
+1. **Attempt 1**: Analyze error, try alternative approach
+2. **Attempt 2**: Rollback to last good state, try different strategy
+3. **Attempt 3**: STOP. Report to user what was attempted, what failed, and suggested manual steps
+
+## Module Guide Loading
+
+When loading a module, read these files in order:
+1. `{{MODULES_ROOT}}/<module>/guide.md` — main methodology (ALWAYS read)
+2. `{{MODULES_ROOT}}/<module>/patterns.md` — reference patterns (read if relevant)
+3. `{{MODULES_ROOT}}/<module>/prompts/<scenario>.md` — specific scenario (read if matches)
+
+## Configuration
+
+User config overrides defaults. Read config with:
+```bash
+{{BIN_ROOT}}/8hour-config get <module>.<key>
+```
+
+Example: `{{BIN_ROOT}}/8hour-config get test.framework`

@@ -102,16 +102,16 @@ update:
   channel: stable
   notify: true
 
-# yelly-lead modules
+# 8hour-lead modules
 adr:
   format: nygard
   numbering: sequential-padded-4
-  latest_in_yelly_md: 5
+  latest_in_8hour_md: 5
   require_alternatives: true
 
 debt:
   export_to_tracker: auto
-  top_n_in_yelly_md: 5
+  top_n_in_8hour_md: 5
 
 estimate:
   default_confidence: 0.8
@@ -122,5 +122,5 @@ estimate:
 risk:
   severity_threshold_block: 20
   severity_threshold_warn: 12
-  active_risks_in_yelly_md: 5
+  active_risks_in_8hour_md: 5
   review_interval_days: 7

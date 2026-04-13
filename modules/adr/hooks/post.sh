@@ -1,6 +1,6 @@
 #!/bin/bash
 # Post-adr: validate the latest ADR has all required Nygard sections.
-latest=$(ls -t docs/yelly/adr/*.md 2>/dev/null | head -1)
+latest=$(ls -t docs/8hour/adr/*.md 2>/dev/null | head -1)
 if [ -z "$latest" ]; then
   exit 0
 fi

@@ -1,0 +1,150 @@
+# 8HOUR.md Schema Reference
+
+This document specifies the structure of `8HOUR.md` — the per-project context file maintained by `/8hour-lead`. It is normative for `lib/8hour-lead/` and the migration script.
+
+## Overview
+
+`8HOUR.md` is a markdown file with YAML frontmatter, structured by HTML-comment section markers so that automated tools can rewrite individual sections without touching the rest of the file.
+
+- **Location:** project root (`./8HOUR.md`)
+- **Encoding:** UTF-8, LF line endings
+- **Soft cap:** 400 lines (warned by `8hour-lead-validate`, rotated by post-hooks)
+- **Git status:** tracked, committed, team-visible
+
+## Frontmatter (required)
+
+```yaml
+---
+8hour_version: 1                          # schema version (integer, required)
+8hour_lead_version: 0.2.0                  # version of 8hour-master that last wrote this file
+last_updated: 2026-04-13T14:23:00.000Z     # ISO 8601 timestamp, UTC
+last_updated_by: /8hour-lead estimate      # invoking command or "8hour-lead-sync"
+schema: project-state                      # always "project-state" in v1
+---
+```
+
+| Key | Type | Required | Notes |
+|---|---|---|---|
+| `8hour_version` | integer | yes | Migration script keys off this. Current: `1`. |
+| `8hour_lead_version` | string | yes | Semver. Stamped at every write. |
+| `last_updated` | ISO 8601 | yes | js-yaml parses to Date; lib normalizes via `toISOString()`. |
+| `last_updated_by` | string | yes | Either `/8hour-lead <module>` or `8hour-lead-sync` or `bootstrap`. |
+| `schema` | string | yes | Always `project-state` in v1. |
+
+## Sections
+
+Each section is delimited by an HTML comment marker pair:
+
+```html
+<!-- 8hour-lead: <section-name> -->
+... section body ...
+<!-- /8hour-lead: <section-name> -->
+```
+
+The comment names are stable IDs — do not rename them.
+
+### Required section IDs
+
+| ID | H2 heading | Update mode | Owner module |
+|---|---|---|---|
+| `project-snapshot` | Project Snapshot | rewrite | bootstrap |
+| `active-work` | Active Work | rewrite | estimate |
+| `architecture-decisions` | Architecture Decisions (latest 5) | rewrite | adr |
+| `top-risks` | Top Risks (live, top 5 by severity) | rewrite | risk |
+| `tech-debt` | Tech Debt (top 5) | rewrite | debt |
+| `decision-log` | Decision Log (last 10) | append-only | every module |
+| `open-questions` | Open Questions | rewrite | every module |
+| `pinned-notes` | Pinned Notes | preserved | human only |
+
+### Update mode semantics
+
+- **rewrite** — `replaceSection(content, id, newBody)` overwrites the body between markers. Idempotent: replacing twice with the same body is a no-op.
+- **append-only** — `appendToSection(content, id, line)` adds the line right before the closing marker. If the existing body is a placeholder (`_None._`, `_None yet._`, or empty), it is replaced with just the new line.
+- **preserved** — never touched by tooling. Humans edit this section directly.
+
+### Section content rules
+
+- **`project-snapshot`** must contain at minimum: Project name, Stack, Phase, Team size, Current focus.
+- **`active-work`** is a bullet list. Each bullet links to a spec, plan, or estimate file under `docs/8hour/`.
+- **`architecture-decisions`** lists the latest 5 ADRs by ADR number (descending). Format: `- ADR-NNNN: <title> — <status>`.
+- **`top-risks`** lists the top 5 risks by severity (descending). Format: `<rank>. **<title>** — severity <S> (owner <name>)`.
+- **`tech-debt`** lists the top 5 debt items by `(risk + blocker) / cost`. Format: `<rank>. **<title>** — score <s>, cost <C>d, category <category>`.
+- **`decision-log`** is append-only. Each line: `- YYYY-MM-DD — <one-sentence decision>`.
+- **`open-questions`** is a free-form bullet list, manually curated by the AI.
+- **`pinned-notes`** is free-form markdown preserved across regeneration.
+
+## Governance
+
+- **Soft cap:** 400 lines total. `8hour-lead-validate` warns; post-hooks rotate.
+- **Rotation strategy:** When over 400 lines, the oldest half of `decision-log` entries move to `docs/8hour/decisions/archive.md`. Resolved items in `top-risks` and `tech-debt` drop out automatically on the next regeneration.
+- **Schema migrations:** the migration script for the next major schema version reads `8hour_version` from frontmatter and applies the migration if it is behind. Migrations are no-ops on already-current files.
+
+## Versioning
+
+`8hour_version` (the schema number) and `8hour_lead_version` (the toolchain version) are independent.
+
+- **`8hour_version`** changes only when the schema breaks compatibility — new required sections, renamed markers, frontmatter key changes. Increment requires a migration.
+- **`8hour_lead_version`** changes on every 8hour-master release. It is stamped at each write but does not affect compatibility.
+
+## Example
+
+```markdown
+---
+8hour_version: 1
+8hour_lead_version: 0.2.0
+last_updated: 2026-04-13T14:23:00.000Z
+last_updated_by: /8hour-lead estimate
+schema: project-state
+---
+
+# 8HOUR — Project Tech Lead Context
+
+> Auto-generated by /8hour-lead. Do not edit manually except for the Pinned Notes section.
+
+## Project Snapshot
+<!-- 8hour-lead: project-snapshot -->
+- **Project:** my-app
+- **Stack:** typescript + node (express) [db: postgres]
+- **Phase:** MVP
+- **Team:** 4
+- **Current focus:** ship payment integration
+<!-- /8hour-lead: project-snapshot -->
+
+## Active Work
+<!-- 8hour-lead: active-work -->
+- [Estimate: checkout flow](docs/8hour/estimates/2026-04-13-checkout-flow.md) — P50 8d, P80 11d
+<!-- /8hour-lead: active-work -->
+
+## Architecture Decisions (latest 5)
+<!-- 8hour-lead: architecture-decisions -->
+- ADR-0002: Stripe over Paddle — accepted
+- ADR-0001: Use Postgres — accepted
+<!-- /8hour-lead: architecture-decisions -->
+
+## Top Risks (live, top 5 by severity)
+<!-- 8hour-lead: top-risks -->
+1. **Stripe webhook duplication** — severity 16 (owner alice)
+<!-- /8hour-lead: top-risks -->
+
+## Tech Debt (top 5)
+<!-- 8hour-lead: tech-debt -->
+_No debt tracked yet._
+<!-- /8hour-lead: tech-debt -->
+
+## Decision Log (last 10)
+<!-- 8hour-lead: decision-log -->
+- 2026-04-13 — Recorded ADR-0002: Stripe over Paddle
+- 2026-04-12 — Estimated checkout flow: 8d (P80 11d)
+<!-- /8hour-lead: decision-log -->
+
+## Open Questions
+<!-- 8hour-lead: open-questions -->
+- Should we self-host Stripe tax? (legal input pending)
+<!-- /8hour-lead: open-questions -->
+
+## Pinned Notes
+<!-- 8hour-lead: pinned-notes (preserved across regeneration) -->
+Useful pgcli queries:
+- `\dt+` — show table sizes
+<!-- /8hour-lead: pinned-notes -->
+```

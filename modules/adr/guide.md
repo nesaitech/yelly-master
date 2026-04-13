@@ -35,7 +35,7 @@ Walk through the four criteria above. If unclear, ask the user. Do not write an 
 ### Step 2: Find the next ADR number
 
 ```bash
-ls docs/yelly/adr/ 2>/dev/null | grep -E '^[0-9]+-' | sort -n | tail -1
+ls docs/8hour/adr/ 2>/dev/null | grep -E '^[0-9]+-' | sort -n | tail -1
 ```
 
 The next ADR is `NNNN+1`, zero-padded to 4 digits.
@@ -52,20 +52,20 @@ Use `templates/adr.md.tmpl` (from Plan 1). Fill the placeholders:
 - `{{ALTERNATIVE_TITLE}}`, `{{ALTERNATIVE_DESCRIPTION}}`, `{{ALTERNATIVE_REJECTION}}` — at least one rejected alternative with reasoning
 - `{{SPEC_LINK}}`, `{{PR_LINK}}` — references back to the work that introduced the decision
 
-Save as `docs/yelly/adr/NNNN-kebab-title.md`.
+Save as `docs/8hour/adr/NNNN-kebab-title.md`.
 
-### Step 4: Update `YELLY.md`
+### Step 4: Update `8HOUR.md`
 
-Add a one-line entry to the "Architecture Decisions (latest 5)" section using `lib/yelly-lead/yelly-md-updater.ts:replaceSection` with the section name `"architecture-decisions"`. Trim the list to the 5 most recent ADRs.
+Add a one-line entry to the "Architecture Decisions (latest 5)" section using `lib/8hour-lead/8hour-md-updater.ts:replaceSection` with the section name `"architecture-decisions"`. Trim the list to the 5 most recent ADRs.
 
 Append a one-line entry to "Decision Log (last 10)" via `appendToSection("decision-log", ...)`.
 
-Stamp the frontmatter with `stampFrontmatter(content, { updated_by: "/yelly-lead adr", yelly_lead_version })`.
+Stamp the frontmatter with `stampFrontmatter(content, { updated_by: "/8hour-lead adr", 8hour_lead_version })`.
 
 ### Step 5: Commit the ADR
 
 ```bash
-git add docs/yelly/adr/NNNN-*.md YELLY.md
+git add docs/8hour/adr/NNNN-*.md 8HOUR.md
 git commit -m "docs(adr): NNNN — <title>"
 ```
 
@@ -106,6 +106,6 @@ At least one rejected alternative with the reasoning. This is what makes an ADR 
 ## Cross-module references
 
 - `templates/adr.md.tmpl` — the file format
-- `lib/yelly-lead/yelly-md-updater.ts` — how `YELLY.md` is updated
+- `lib/8hour-lead/8hour-md-updater.ts` — how `8HOUR.md` is updated
 - `modules/risk` — risks identified during ADR consideration may go to the risk register
 - `modules/estimate` — significant ADRs often warrant a fresh estimate of the affected work

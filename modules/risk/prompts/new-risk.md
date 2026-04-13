@@ -29,19 +29,19 @@ If severity ≥20, warn the user that this risk will block deploys until mitigat
 
 ## Step 3: Append to active register
 
-Open `docs/yelly/risks/active.md` (create with a one-line header if missing). Append a new H2 block using `templates/risk.md.tmpl`. Generate a unique `risk_id` from date + slug: `risk-YYYY-MM-DD-<slug>`.
+Open `docs/8hour/risks/active.md` (create with a one-line header if missing). Append a new H2 block using `templates/risk.md.tmpl`. Generate a unique `risk_id` from date + slug: `risk-YYYY-MM-DD-<slug>`.
 
-## Step 4: Update YELLY.md
+## Step 4: Update 8HOUR.md
 
 - Re-read `active.md`, sort all risks by severity descending, take the top 5
 - `replaceSection("top-risks", <top 5 formatted>)`
 - `appendToSection("decision-log", "- YYYY-MM-DD — Risk added: <title> (severity <S>)")`
-- `stampFrontmatter(content, { updated_by: "/yelly-lead risk", yelly_lead_version })`
+- `stampFrontmatter(content, { updated_by: "/8hour-lead risk", 8hour_lead_version })`
 
 ## Step 5: Commit
 
 ```bash
-git add docs/yelly/risks/active.md YELLY.md
+git add docs/8hour/risks/active.md 8HOUR.md
 git commit -m "docs(risk): add <title> (severity <S>)"
 ```
 
@@ -49,6 +49,6 @@ git commit -m "docs(risk): add <title> (severity <S>)"
 
 Tell the user:
 - The new risk's severity score and category
-- Whether it now appears in the top 5 (YELLY.md)
+- Whether it now appears in the top 5 (8HOUR.md)
 - The owner and due date
 - Whether the deploy gate is now blocking (severity ≥20)

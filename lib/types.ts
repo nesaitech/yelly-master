@@ -33,7 +33,7 @@ export interface UpdateConfig {
   notify?: boolean;
 }
 
-export interface YellyConfig {
+export interface EightHourConfig {
   [module: string]: Record<string, unknown> | UpdateConfig | undefined;
   update?: UpdateConfig;
 }

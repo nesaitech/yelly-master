@@ -11,7 +11,7 @@ describe("getHostPaths", () => {
     expect(paths.name).toBe("claude");
     expect(paths.skillsDir).toContain(".claude/skills");
     expect(paths.settingsFile).toContain(".claude/settings.json");
-    expect(paths.configDir).toContain(".yelly-master");
+    expect(paths.configDir).toContain(".8hour-master");
   });
 
   it("returns correct paths for codex", () => {
@@ -47,7 +47,7 @@ describe("getHostPaths", () => {
 });
 
 describe("detectAllHosts", () => {
-  const tmp = join(tmpdir(), "yelly-test-hosts-" + Date.now());
+  const tmp = join(tmpdir(), "8hour-test-hosts-" + Date.now());
 
   beforeEach(() => { mkdirSync(tmp, { recursive: true }); });
   afterEach(() => { rmSync(tmp, { recursive: true, force: true }); });
