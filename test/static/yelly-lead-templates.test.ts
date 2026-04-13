@@ -55,3 +55,66 @@ describe("YELLY.md.tmpl", () => {
     });
   }
 });
+
+describe("adr.md.tmpl", () => {
+  const path = join(TEMPLATES, "adr.md.tmpl");
+
+  it("exists", () => {
+    expect(existsSync(path)).toBe(true);
+  });
+
+  const content = existsSync(path) ? readFileSync(path, "utf-8") : "";
+
+  it("uses Nygard sections", () => {
+    expect(content).toContain("## Status");
+    expect(content).toContain("## Context");
+    expect(content).toContain("## Decision");
+    expect(content).toContain("## Consequences");
+    expect(content).toContain("## Alternatives Considered");
+  });
+
+  for (const placeholder of [
+    "{{ADR_NUMBER}}",
+    "{{TITLE}}",
+    "{{DATE}}",
+    "{{CONTEXT}}",
+    "{{DECISION}}",
+  ]) {
+    it(`contains placeholder ${placeholder}`, () => {
+      expect(content).toContain(placeholder);
+    });
+  }
+});
+
+describe("estimate.md.tmpl", () => {
+  const path = join(TEMPLATES, "estimate.md.tmpl");
+
+  it("exists", () => {
+    expect(existsSync(path)).toBe(true);
+  });
+
+  const content = existsSync(path) ? readFileSync(path, "utf-8") : "";
+
+  it("has PERT formula and P50/P80/P95", () => {
+    expect(content).toContain("(O + 4M + P) / 6");
+    expect(content).toContain("P50");
+    expect(content).toContain("P80");
+    expect(content).toContain("P95");
+  });
+});
+
+describe("risk.md.tmpl", () => {
+  const path = join(TEMPLATES, "risk.md.tmpl");
+
+  it("exists", () => {
+    expect(existsSync(path)).toBe(true);
+  });
+
+  const content = existsSync(path) ? readFileSync(path, "utf-8") : "";
+
+  it("has impact × probability × severity fields", () => {
+    expect(content).toContain("Impact");
+    expect(content).toContain("Probability");
+    expect(content).toContain("Severity");
+  });
+});

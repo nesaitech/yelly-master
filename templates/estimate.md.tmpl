@@ -1,0 +1,43 @@
+---
+estimate_id: {{ESTIMATE_ID}}
+topic: {{TOPIC}}
+date: {{DATE}}
+status: open
+confidence: {{CONFIDENCE}}
+---
+
+# Estimate: {{TOPIC}}
+
+## Scope
+
+{{SCOPE_DESCRIPTION}}
+
+## Decomposition
+
+| Task | Optimistic (O) | Most Likely (M) | Pessimistic (P) |
+|------|---------------:|-----------------:|----------------:|
+| {{TASK_1}} | {{O_1}} | {{M_1}} | {{P_1}} |
+
+## PERT Calculation
+
+- **Expected (E):** (O + 4M + P) / 6 = **{{EXPECTED_DAYS}}d**
+- **Standard deviation (σ):** (P - O) / 6 = **{{SIGMA}}d**
+- **P50:** {{EXPECTED_DAYS}}d
+- **P80:** {{P80_DAYS}}d
+- **P95:** {{P95_DAYS}}d
+
+## Risk Adjustment
+
+Multiplier applied: **{{RISK_FACTOR}}×** (from risk module: {{RISK_REASON}})
+
+**Final estimate:** {{FINAL_DAYS}}d ±{{FINAL_SIGMA}}d at {{CONFIDENCE}} confidence
+
+## Assumptions
+
+- {{ASSUMPTION}}
+
+## Closure (filled when work ships)
+
+- **Actual days:** _pending_
+- **Error vs P50:** _pending_
+- **Calibration note:** _pending_
