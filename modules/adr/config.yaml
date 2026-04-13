@@ -1,0 +1,23 @@
+detail_level: high
+format: nygard
+numbering: sequential-padded-4
+latest_in_yelly_md: 5
+require_alternatives: true
+permissions:
+  tools:
+    - Read
+    - Grep
+    - Glob
+    - Bash
+    - Edit
+    - Write
+  bash_commands:
+    - "git log *"
+    - "git diff *"
+    - "ls docs/yelly/adr/*"
+  file_access:
+    read: "**/*"
+    write: "docs/yelly/adr/**/*"
+    write_extra:
+      - "YELLY.md"
+  dangerous: []
