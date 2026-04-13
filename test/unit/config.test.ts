@@ -30,7 +30,7 @@ describe("mergeConfigs", () => {
 });
 
 describe("loadConfig", () => {
-  const tmp = join(tmpdir(), "yelly-test-config-" + Date.now());
+  const tmp = join(tmpdir(), "8hour-test-config-" + Date.now());
 
   beforeEach(() => { mkdirSync(tmp, { recursive: true }); });
   afterEach(() => { rmSync(tmp, { recursive: true, force: true }); });
@@ -143,7 +143,7 @@ describe("loadConfig", () => {
 });
 
 describe("getConfigValue / setConfigValue", () => {
-  const tmp = join(tmpdir(), "yelly-test-getset-" + Date.now());
+  const tmp = join(tmpdir(), "8hour-test-getset-" + Date.now());
 
   beforeEach(() => mkdirSync(tmp, { recursive: true }));
   afterEach(() => rmSync(tmp, { recursive: true, force: true }));

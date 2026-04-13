@@ -3,7 +3,7 @@
 You are interpreting health score trends over time to understand codebase quality trajectory.
 
 ## Step 1: Load History
-Read the health history file at `.yelly-master/health-history.json`. Each entry contains:
+Read the health history file at `.8hour-master/health-history.json`. Each entry contains:
 - Timestamp
 - Composite score (0-10)
 - Individual dimension scores (test, lint, types, security, dead_code)

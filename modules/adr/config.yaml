@@ -1,7 +1,7 @@
 detail_level: high
 format: nygard
 numbering: sequential-padded-4
-latest_in_yelly_md: 5
+latest_in_8hour_md: 5
 require_alternatives: true
 permissions:
   tools:
@@ -14,10 +14,10 @@ permissions:
   bash_commands:
     - "git log *"
     - "git diff *"
-    - "ls docs/yelly/adr/*"
+    - "ls docs/8hour/adr/*"
   file_access:
     read: "**/*"
-    write: "docs/yelly/adr/**/*"
+    write: "docs/8hour/adr/**/*"
     write_extra:
-      - "YELLY.md"
+      - "8HOUR.md"
   dangerous: []

@@ -44,7 +44,7 @@ describe("compareVersions", () => {
 });
 
 describe("readLocalVersion", () => {
-  const tmp = join(tmpdir(), "yelly-test-version-" + Date.now());
+  const tmp = join(tmpdir(), "8hour-test-version-" + Date.now());
 
   beforeEach(() => mkdirSync(tmp, { recursive: true }));
   afterEach(() => rmSync(tmp, { recursive: true, force: true }));
@@ -60,7 +60,7 @@ describe("readLocalVersion", () => {
 });
 
 describe("cache", () => {
-  const tmp = join(tmpdir(), "yelly-test-cache-" + Date.now());
+  const tmp = join(tmpdir(), "8hour-test-cache-" + Date.now());
 
   beforeEach(() => mkdirSync(tmp, { recursive: true }));
   afterEach(() => rmSync(tmp, { recursive: true, force: true }));

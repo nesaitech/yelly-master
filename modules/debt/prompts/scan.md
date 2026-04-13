@@ -4,7 +4,7 @@ Run a full project debt scan and surface the top 5.
 
 ## Step 1: Detect tracker
 
-Call `detectTracker(projectDir)` from `lib/yelly-lead/tracker-detect.ts`. Note the type and CLI availability. Read the user's preference from `config/yelly-lead.yaml: debt.export_to_tracker`.
+Call `detectTracker(projectDir)` from `lib/8hour-lead/tracker-detect.ts`. Note the type and CLI availability. Read the user's preference from `config/8hour-lead.yaml: debt.export_to_tracker`.
 
 Decision matrix:
 
@@ -38,11 +38,11 @@ Sort descending. Trim to the top 20.
 
 ## Step 4: Export
 
-Apply the action from Step 1's matrix. For tracker export, file each top-20 item as a separate issue with the standard body format from the guide. For local fallback, write all 20 to `docs/yelly/debt/register.md` (idempotent: stable IDs).
+Apply the action from Step 1's matrix. For tracker export, file each top-20 item as a separate issue with the standard body format from the guide. For local fallback, write all 20 to `docs/8hour/debt/register.md` (idempotent: stable IDs).
 
-## Step 5: Update YELLY.md
+## Step 5: Update 8HOUR.md
 
-Surface the top 5 in the `tech-debt` section of `YELLY.md`. Format each as:
+Surface the top 5 in the `tech-debt` section of `8HOUR.md`. Format each as:
 
 ```
 1. **<title>** — score <s>, cost <C>d, category <category>
@@ -55,4 +55,4 @@ Stamp frontmatter.
 
 ## Step 6: Report to user
 
-Show the top 5 with priority scores. Tell the user how many candidates were found, where they were exported (tracker URL or local file), and the next step (`/yelly-lead debt prioritize` to rebalance later).
+Show the top 5 with priority scores. Tell the user how many candidates were found, where they were exported (tracker URL or local file), and the next step (`/8hour-lead debt prioritize` to rebalance later).

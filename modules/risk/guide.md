@@ -58,9 +58,9 @@ Mitigation reduces P or I. Contingency caps the damage if mitigation fails. Both
 
 ### Step 4: Save
 
-Write each risk to `docs/yelly/risks/active.md`, one risk per H2 section. Use `templates/risk.md.tmpl` from Plan 1 as the format.
+Write each risk to `docs/8hour/risks/active.md`, one risk per H2 section. Use `templates/risk.md.tmpl` from Plan 1 as the format.
 
-### Step 5: Update YELLY.md
+### Step 5: Update 8HOUR.md
 
 - `replaceSection("top-risks", <top 5 by severity, formatted>)`
 - `appendToSection("decision-log", "- YYYY-MM-DD — Risk added: <title> (severity <S>)")`
@@ -69,7 +69,7 @@ Write each risk to `docs/yelly/risks/active.md`, one risk per H2 section. Use `t
 ### Step 6: Commit
 
 ```bash
-git add docs/yelly/risks/active.md YELLY.md
+git add docs/8hour/risks/active.md 8HOUR.md
 git commit -m "docs(risk): <action> — <title> (severity <S>)"
 ```
 
@@ -80,7 +80,7 @@ A risk closes when **either** condition holds:
 1. The mitigation is complete and the residual severity is ≤6
 2. The risk is confirmed as no longer applicable (e.g., the feature was cancelled)
 
-Move closed risks from `active.md` to `docs/yelly/risks/archive/YYYY-MM.md`. Append the resolution note: what mitigation worked, what did not, what was learned. Closed risks are part of the team's memory.
+Move closed risks from `active.md` to `docs/8hour/risks/archive/YYYY-MM.md`. Append the resolution note: what mitigation worked, what did not, what was learned. Closed risks are part of the team's memory.
 
 ## Integration with other modules
 
@@ -88,7 +88,7 @@ This is the part that makes a risk register useful instead of decorative.
 
 ### deploy gate
 
-When the user invokes `/yelly-lead risk deploy-gate`, the module reads `active.md` and reports any risks with severity ≥`severity_threshold_block` (default 20). The deploy module's pre-flight should call this gate and refuse to deploy without an explicit override (`--accept-risk-<id>` per blocking risk).
+When the user invokes `/8hour-lead risk deploy-gate`, the module reads `active.md` and reports any risks with severity ≥`severity_threshold_block` (default 20). The deploy module's pre-flight should call this gate and refuse to deploy without an explicit override (`--accept-risk-<id>` per blocking risk).
 
 ### review
 
@@ -110,7 +110,7 @@ These integrations are **best effort** in MVP — the risk module exposes the da
 ## Cross-module references
 
 - `templates/risk.md.tmpl` — file format
-- `lib/yelly-lead/yelly-md-updater.ts` — for YELLY.md updates
+- `lib/8hour-lead/8hour-md-updater.ts` — for 8HOUR.md updates
 - `modules/deploy` — consumes the risk gate
 - `modules/review` — consumes the risk-files mapping
 - `modules/estimate` — consumes the risk adjustment factor

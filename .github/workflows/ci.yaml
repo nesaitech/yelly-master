@@ -71,8 +71,8 @@ jobs:
           const results = generateSkillDocs({
             skillsDir: 'skills',
             host: 'claude',
-            modulesRoot: '~/.claude/skills/yelly-master/modules',
-            binRoot: '~/.claude/skills/yelly-master/bin',
+            modulesRoot: '~/.claude/skills/8hour-master/modules',
+            binRoot: '~/.claude/skills/8hour-master/bin',
             version,
             dryRun: true,
           });

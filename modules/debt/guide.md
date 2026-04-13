@@ -2,7 +2,7 @@
 
 Technical debt is the gap between the codebase you have and the codebase you would write today. This module helps a tech lead identify, classify, and prioritize debt without duplicating the team's issue tracker.
 
-The core principle is **single source of truth**. If the team uses GitHub Issues, Jira, or Linear, debt items live there — this module just helps surface, classify, and prioritize them. If the team has no tracker, the module falls back to a local `docs/yelly/debt/register.md`.
+The core principle is **single source of truth**. If the team uses GitHub Issues, Jira, or Linear, debt items live there — this module just helps surface, classify, and prioritize them. If the team has no tracker, the module falls back to a local `docs/8hour/debt/register.md`.
 
 ## When to scan for debt
 
@@ -17,7 +17,7 @@ Do NOT run debt scans during a crunch — debt awareness without time to act cre
 
 ### Step 1: Detect the issue tracker
 
-Use `lib/yelly-lead/tracker-detect.ts:detectTracker(projectDir)`. The function returns:
+Use `lib/8hour-lead/tracker-detect.ts:detectTracker(projectDir)`. The function returns:
 
 - `type: "github" | "gitlab" | "jira" | "linear" | "none"`
 - `cliAvailable: boolean`
@@ -28,7 +28,7 @@ Behavior:
 - `type === "gitlab"` AND `cliAvailable` → use `glab issue create`
 - `type === "jira" / "linear"` AND `cliAvailable` → use respective CLI
 
-The user can override with `config/yelly-lead.yaml: debt.export_to_tracker: never|always|auto`. Default is `auto`.
+The user can override with `config/8hour-lead.yaml: debt.export_to_tracker: never|always|auto`. Default is `auto`.
 
 ### Step 2: Scan sources
 
@@ -65,7 +65,7 @@ Score each item with three factors (each 1-5):
 
 **Priority score:** `(R + B) / C` — favors high-impact, low-cost items.
 
-Sort descending. The top 5 by score go in `YELLY.md` Tech Debt section.
+Sort descending. The top 5 by score go in `8HOUR.md` Tech Debt section.
 
 ### Step 5: Export
 
@@ -86,7 +86,7 @@ BODY
 
 **If no tracker:**
 
-Write to `docs/yelly/debt/register.md`. Use a stable section per item (so re-runs can update without duplicating). Format:
+Write to `docs/8hour/debt/register.md`. Use a stable section per item (so re-runs can update without duplicating). Format:
 
 ```markdown
 ## DEBT-<id>: <title>
@@ -105,16 +105,16 @@ Write to `docs/yelly/debt/register.md`. Use a stable section per item (so re-run
 _pending_
 ```
 
-### Step 6: Update YELLY.md
+### Step 6: Update 8HOUR.md
 
 - `replaceSection(content, "tech-debt", <top 5 formatted>)`
 - `appendToSection(content, "decision-log", "- YYYY-MM-DD — Debt scan: <N> items found, <K> in top 5")`
-- `stampFrontmatter(content, { updated_by: "/yelly-lead debt", yelly_lead_version })`
+- `stampFrontmatter(content, { updated_by: "/8hour-lead debt", 8hour_lead_version })`
 
 ### Step 7: Commit
 
 ```bash
-git add YELLY.md docs/yelly/debt/register.md
+git add 8HOUR.md docs/8hour/debt/register.md
 git commit -m "chore(debt): scan — <N> items, top <K> surfaced"
 ```
 
@@ -136,7 +136,7 @@ Closed items drop out of the top 5 automatically on the next scan.
 
 ## Cross-module references
 
-- `lib/yelly-lead/tracker-detect.ts` — issue tracker detection
+- `lib/8hour-lead/tracker-detect.ts` — issue tracker detection
 - `modules/health` — provides complexity / churn / coverage reports as input
 - `modules/refactor` — the methodology to *fix* debt items (this module identifies them)
 - `modules/risk` — high-risk debt items may also warrant a risk register entry

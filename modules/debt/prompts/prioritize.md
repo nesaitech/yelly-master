@@ -4,8 +4,8 @@ Use when the user wants to re-prioritize the existing debt list (e.g., after clo
 
 ## Step 1: Load current state
 
-- Read `YELLY.md` Tech Debt section to see the current top 5
-- Detect the tracker. If exported, fetch all open `tech-debt` labeled issues. If local, read `docs/yelly/debt/register.md`.
+- Read `8HOUR.md` Tech Debt section to see the current top 5
+- Detect the tracker. If exported, fetch all open `tech-debt` labeled issues. If local, read `docs/8hour/debt/register.md`.
 
 ## Step 2: Re-score in light of new context
 
@@ -20,7 +20,7 @@ Update C/R/B for items that changed. Recompute `score = (R + B) / C`.
 
 Sort. New top 5 may differ. Note items that dropped out (so the user knows why).
 
-## Step 4: Update YELLY.md
+## Step 4: Update 8HOUR.md
 
 `replaceSection("tech-debt", <new top 5>)`. Append a Decision Log entry: `- YYYY-MM-DD — Debt re-prioritized: <added>, <dropped>`. Stamp.
 

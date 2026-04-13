@@ -15,7 +15,7 @@ A composite health score that aggregates multiple quality signals into a single 
 
 3. **Compute the weighted composite score.** Multiply each dimension score by its weight, sum the results, and round to one decimal place. This is the health score.
 
-4. **Compare against previous scores.** Load the score history from `.yelly-master/health-history.json`. Compare the current score to the last recorded score. Flag any dimension that dropped by more than 1 point.
+4. **Compare against previous scores.** Load the score history from `.8hour-master/health-history.json`. Compare the current score to the last recorded score. Flag any dimension that dropped by more than 1 point.
 
 5. **Identify trends.** Look at the last 5-10 scores. Is the trend improving, stable, or declining? A steady decline suggests accumulating technical debt. A sudden drop suggests a recent problematic change.
 

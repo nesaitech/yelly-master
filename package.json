@@ -1,6 +1,6 @@
 {
-  "name": "yelly-master",
-  "version": "0.2.0",
+  "name": "8hour-master",
+  "version": "0.3.0",
   "description": "AI Engineering Copilot Plugin — all-in-one senior engineer for debugging, review, testing, deployment, and collaboration",
   "type": "module",
   "scripts": {
@@ -9,14 +9,14 @@
     "test:watch": "vitest",
     "test:static": "vitest run test/static/",
     "test:unit": "vitest run test/unit/",
-    "test:yelly-lead": "vitest run test/unit/yelly-lead/ test/static/yelly-lead-templates.test.ts",
+    "test:8hour-lead": "vitest run test/unit/8hour-lead/ test/static/8hour-lead-templates.test.ts",
     "gen:skills": "node --loader ts-node/esm scripts/gen-skill-docs.ts",
-    "yelly-config": "node --loader ts-node/esm bin/yelly-config.ts",
-    "yelly-update-check": "node --loader ts-node/esm bin/yelly-update-check.ts",
-    "yelly-repo-mode": "node --loader ts-node/esm bin/yelly-repo-mode.ts",
-    "yelly-lead-sync": "node --loader ts-node/esm bin/yelly-lead-sync.ts",
-    "yelly-lead-validate": "node --loader ts-node/esm bin/yelly-lead-validate.ts",
-    "yelly-lead-stats": "node --loader ts-node/esm bin/yelly-lead-stats.ts"
+    "8hour-config": "node --loader ts-node/esm bin/8hour-config.ts",
+    "8hour-update-check": "node --loader ts-node/esm bin/8hour-update-check.ts",
+    "8hour-repo-mode": "node --loader ts-node/esm bin/8hour-repo-mode.ts",
+    "8hour-lead-sync": "node --loader ts-node/esm bin/8hour-lead-sync.ts",
+    "8hour-lead-validate": "node --loader ts-node/esm bin/8hour-lead-validate.ts",
+    "8hour-lead-stats": "node --loader ts-node/esm bin/8hour-lead-stats.ts"
   },
   "license": "MIT",
   "dependencies": {

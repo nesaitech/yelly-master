@@ -16,7 +16,7 @@ const HOSTS_WITH_SETTINGS: HostName[] = ["claude", "codex", "kiro"];
 
 export function getHostPaths(host: HostName): HostPaths {
   const home = homedir();
-  const configDir = join(home, ".yelly-master");
+  const configDir = join(home, ".8hour-master");
 
   if (host === "generic") {
     return { name: "generic", skillsDir: "", settingsFile: "", configDir };

@@ -6,7 +6,7 @@ categories:
   - security
   - performance
   - test-coverage
-top_n_in_yelly_md: 5
+top_n_in_8hour_md: 5
 permissions:
   tools:
     - Read
@@ -26,7 +26,7 @@ permissions:
     - "grep -RIn TODO *"
   file_access:
     read: "**/*"
-    write: "docs/yelly/debt/**/*"
+    write: "docs/8hour/debt/**/*"
     write_extra:
-      - "YELLY.md"
+      - "8HOUR.md"
   dangerous: []

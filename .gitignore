@@ -1,6 +1,6 @@
 node_modules/
 dist/
 *.js.map
-.yelly-master/
+.8hour-master/
 *.tgz
 .worktrees/

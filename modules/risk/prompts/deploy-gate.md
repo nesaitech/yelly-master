@@ -4,7 +4,7 @@ Use before any deploy to surface risks that may block or warn.
 
 ## Step 1: Read active risks
 
-Read `docs/yelly/risks/active.md`. Parse each H2 block; extract `severity`.
+Read `docs/8hour/risks/active.md`. Parse each H2 block; extract `severity`.
 
 ## Step 2: Classify
 
@@ -44,7 +44,7 @@ If neither:
 
 This prompt does NOT actually block — it returns structured data the `deploy` module can act on. Exit code 0 = OK, 1 = WARN, 2 = BLOCKER. The deploy module decides what to do with the signal.
 
-## Step 5: Update YELLY.md (optional)
+## Step 5: Update 8HOUR.md (optional)
 
 If the gate was triggered (warn or blocker), append to Decision Log:
 `- YYYY-MM-DD — Deploy gate: <STATUS> (<N> issues)`

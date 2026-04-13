@@ -22,17 +22,17 @@ Compute E and σ per task. Sum into `E_total` and `σ_total = sqrt(sum(σ_i^2))`
 
 ## Step 5: Risk adjustment
 
-Cross-load `modules/risk/guide.md`. Read `docs/yelly/risks/active.md` if it exists. If any active risks impact this work, apply the configured `risk_factor_default` (or a higher factor with explicit reason). Document the multiplier and reason.
+Cross-load `modules/risk/guide.md`. Read `docs/8hour/risks/active.md` if it exists. If any active risks impact this work, apply the configured `risk_factor_default` (or a higher factor with explicit reason). Document the multiplier and reason.
 
 ## Step 6: Historical calibration
 
-Read `.yelly/history/estimates.jsonl`. If ≥5 entries, compute `bias = mean(actual / estimated)` over the last 10. Apply if `bias != 1.0` (within 5%). If <5 entries, warn the user that calibration is not yet meaningful and propose a flat 40% buffer instead.
+Read `.8hour/history/estimates.jsonl`. If ≥5 entries, compute `bias = mean(actual / estimated)` over the last 10. Apply if `bias != 1.0` (within 5%). If <5 entries, warn the user that calibration is not yet meaningful and propose a flat 40% buffer instead.
 
 ## Step 7: Render and save
 
-Use `templates/estimate.md.tmpl`. Fill placeholders. Save to `docs/yelly/estimates/YYYY-MM-DD-<kebab-topic>.md`.
+Use `templates/estimate.md.tmpl`. Fill placeholders. Save to `docs/8hour/estimates/YYYY-MM-DD-<kebab-topic>.md`.
 
-## Step 8: Update YELLY.md
+## Step 8: Update 8HOUR.md
 
 `replaceSection("active-work", <bullet list>)` → add this estimate as a bullet linking to the file.
 `appendToSection("decision-log", ...)`.
@@ -41,7 +41,7 @@ Use `templates/estimate.md.tmpl`. Fill placeholders. Save to `docs/yelly/estimat
 ## Step 9: Commit
 
 ```bash
-git add docs/yelly/estimates/<file>.md YELLY.md
+git add docs/8hour/estimates/<file>.md 8HOUR.md
 git commit -m "docs(estimate): <topic> — <P50>d (P80 <P80>d)"
 ```
 
@@ -51,4 +51,4 @@ Show the user:
 - Final estimate: P50, P80, P95
 - Risk multiplier (if any) and reason
 - Historical bias correction (if any)
-- Reminder: close the estimate when the work ships, with `/yelly-lead estimate --close <id>`
+- Reminder: close the estimate when the work ships, with `/8hour-lead estimate --close <id>`

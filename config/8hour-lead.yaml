@@ -1,0 +1,14 @@
+# config/8hour-lead.yaml
+# Mega-skill defaults for /8hour-lead. User overrides go to ~/.8hour-master/config.yaml
+# under a 8hour_lead: block.
+
+8hour_lead:
+  bootstrap:
+    auto_inject_claude_md: true
+    create_gitignore_entry: true
+  8hour_md:
+    max_lines: 400
+    decision_log_max_entries: 10
+  artifacts_dir: docs/8hour
+  state_dir: .8hour
+  history_file: .8hour/history/estimates.jsonl

@@ -38,7 +38,7 @@ superseded_by: 0007
 
 Body Status section: `Superseded by ADR-0007 on YYYY-MM-DD.`
 
-## Step 4: Update YELLY.md
+## Step 4: Update 8HOUR.md
 
 The "Architecture Decisions (latest 5)" section should now show the NEW ADR. The superseded ADR no longer counts as "latest" unless it is among the 5 most recent by date.
 
@@ -48,7 +48,7 @@ Append to Decision Log:
 ## Step 5: Commit
 
 ```bash
-git add docs/yelly/adr/0007-*.md docs/yelly/adr/0003-*.md YELLY.md
+git add docs/8hour/adr/0007-*.md docs/8hour/adr/0003-*.md 8HOUR.md
 git commit -m "docs(adr): 0007 supersedes 0003 — <title>"
 ```
 

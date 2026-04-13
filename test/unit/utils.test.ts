@@ -16,7 +16,7 @@ describe("expandHome", () => {
 });
 
 describe("readYaml", () => {
-  const tmp = join(tmpdir(), "yelly-test-utils-" + Date.now());
+  const tmp = join(tmpdir(), "8hour-test-utils-" + Date.now());
 
   it("reads and parses a yaml file", () => {
     mkdirSync(tmp, { recursive: true });
@@ -33,7 +33,7 @@ describe("readYaml", () => {
 });
 
 describe("writeYaml", () => {
-  const tmp = join(tmpdir(), "yelly-test-write-" + Date.now());
+  const tmp = join(tmpdir(), "8hour-test-write-" + Date.now());
 
   it("writes object as yaml", () => {
     mkdirSync(tmp, { recursive: true });
@@ -46,7 +46,7 @@ describe("writeYaml", () => {
 });
 
 describe("ensureDir", () => {
-  const tmp = join(tmpdir(), "yelly-test-ensure-" + Date.now());
+  const tmp = join(tmpdir(), "8hour-test-ensure-" + Date.now());
 
   it("creates directory recursively", () => {
     const dir = join(tmp, "a", "b", "c");

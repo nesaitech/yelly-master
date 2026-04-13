@@ -56,7 +56,7 @@ Cross-reference the `risk` module. If any active risks affect the work, multiply
 
 ### Step 6: Historical calibration
 
-Read `.yelly/history/estimates.jsonl` (append-only, one JSON object per closed estimate). Each line is shaped like:
+Read `.8hour/history/estimates.jsonl` (append-only, one JSON object per closed estimate). Each line is shaped like:
 
 ```json
 {"id":"est-2026-04-12","topic":"checkout flow","estimated":8,"actual":11,"date":"2026-04-12"}
@@ -73,30 +73,30 @@ Use `templates/estimate.md.tmpl` (from Plan 1). Fill the placeholders:
 - Final estimate with confidence and bias note
 - Assumptions
 
-Save to `docs/yelly/estimates/YYYY-MM-DD-<topic>.md`.
+Save to `docs/8hour/estimates/YYYY-MM-DD-<topic>.md`.
 
-### Step 8: Update YELLY.md
+### Step 8: Update 8HOUR.md
 
 - `replaceSection("active-work", <updated bullet list including this estimate>)`
 - `appendToSection("decision-log", "- YYYY-MM-DD — Estimated <topic>: <P50>d (P80 <P80>d)")`
-- `stampFrontmatter(content, { updated_by: "/yelly-lead estimate", yelly_lead_version })`
+- `stampFrontmatter(content, { updated_by: "/8hour-lead estimate", 8hour_lead_version })`
 
 ### Step 9: Commit
 
 ```bash
-git add docs/yelly/estimates/<file>.md YELLY.md
+git add docs/8hour/estimates/<file>.md 8HOUR.md
 git commit -m "docs(estimate): <topic> — <P50>d (P80 <P80>d)"
 ```
 
 ## Closing an estimate
 
-When the work ships, run `/yelly-lead estimate --close <id>`. The module:
+When the work ships, run `/8hour-lead estimate --close <id>`. The module:
 
 1. Reads the estimate file, asks for `actual` days
 2. Computes `error = actual - P50`
 3. Updates the estimate file's "Closure" section
-4. Appends a line to `.yelly/history/estimates.jsonl`
-5. Updates the YELLY.md Decision Log: `- YYYY-MM-DD — Closed estimate <id>: actual <actual>d, error <error>d`
+4. Appends a line to `.8hour/history/estimates.jsonl`
+5. Updates the 8HOUR.md Decision Log: `- YYYY-MM-DD — Closed estimate <id>: actual <actual>d, error <error>d`
 
 This is what builds the calibration data set. **Without closing estimates, calibration cannot improve.**
 
@@ -112,4 +112,4 @@ This is what builds the calibration data set. **Without closing estimates, calib
 - `templates/estimate.md.tmpl` — output format
 - `modules/risk` — supplies the risk factor
 - `modules/plan` — large estimates often warrant decomposition into sub-projects (use `plan` for that)
-- `lib/yelly-lead/yelly-md-updater.ts` — for YELLY.md updates
+- `lib/8hour-lead/8hour-md-updater.ts` — for 8HOUR.md updates

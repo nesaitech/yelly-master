@@ -16,8 +16,8 @@ permissions:
     - "git log *"
   file_access:
     read: "**/*"
-    write: "docs/yelly/estimates/**/*"
+    write: "docs/8hour/estimates/**/*"
     write_extra:
-      - "YELLY.md"
-      - ".yelly/history/estimates.jsonl"
+      - "8HOUR.md"
+      - ".8hour/history/estimates.jsonl"
   dangerous: []
