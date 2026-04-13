@@ -1,0 +1,23 @@
+detail_level: high
+default_confidence: 0.8
+risk_factor_default: 1.2
+min_tasks_for_pert: 3
+bias_correction: true
+min_history_for_calibration: 5
+permissions:
+  tools:
+    - Read
+    - Grep
+    - Glob
+    - Bash
+    - Edit
+    - Write
+  bash_commands:
+    - "git log *"
+  file_access:
+    read: "**/*"
+    write: "docs/yelly/estimates/**/*"
+    write_extra:
+      - "YELLY.md"
+      - ".yelly/history/estimates.jsonl"
+  dangerous: []
