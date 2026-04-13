@@ -1,0 +1,22 @@
+detail_level: high
+severity_threshold_block: 20
+severity_threshold_warn: 12
+active_risks_in_yelly_md: 5
+review_interval_days: 7
+permissions:
+  tools:
+    - Read
+    - Grep
+    - Glob
+    - Bash
+    - Edit
+    - Write
+  bash_commands:
+    - "git log *"
+    - "git diff *"
+  file_access:
+    read: "**/*"
+    write: "docs/yelly/risks/**/*"
+    write_extra:
+      - "YELLY.md"
+  dangerous: []
