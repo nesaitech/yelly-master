@@ -144,7 +144,7 @@ info "Installing for: ${SELECTED_HOSTS[*]}"
 echo ""
 
 # ─── Skill names (mega-skills) ───
-SKILLS=("yelly-code" "yelly-ops" "yelly-quality" "yelly-team")
+SKILLS=("yelly-code" "yelly-ops" "yelly-quality" "yelly-team" "yelly-lead")
 
 # Directories/files to symlink from project root into host skills/yelly-master/
 SYMLINK_DIRS=("skills" "modules" "bin" "lib" "config" "scripts")

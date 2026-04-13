@@ -13,7 +13,10 @@
     "gen:skills": "node --loader ts-node/esm scripts/gen-skill-docs.ts",
     "yelly-config": "node --loader ts-node/esm bin/yelly-config.ts",
     "yelly-update-check": "node --loader ts-node/esm bin/yelly-update-check.ts",
-    "yelly-repo-mode": "node --loader ts-node/esm bin/yelly-repo-mode.ts"
+    "yelly-repo-mode": "node --loader ts-node/esm bin/yelly-repo-mode.ts",
+    "yelly-lead-sync": "node --loader ts-node/esm bin/yelly-lead-sync.ts",
+    "yelly-lead-validate": "node --loader ts-node/esm bin/yelly-lead-validate.ts",
+    "yelly-lead-stats": "node --loader ts-node/esm bin/yelly-lead-stats.ts"
   },
   "license": "MIT",
   "dependencies": {
