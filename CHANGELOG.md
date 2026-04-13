@@ -2,6 +2,23 @@
 
 All notable changes to 8hour-master are documented in this file. The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] — 2026-04-13
+
+### Changed
+
+- **BREAKING — project rebranded from `yelly` to `8hour`.** Every user-facing surface, slash command, filename, library module, config key, CLI binary, template, and docs reference is renamed:
+  - Slash commands: `/yelly-code`, `/yelly-ops`, `/yelly-quality`, `/yelly-team`, `/yelly-lead` → `/8hour-code`, `/8hour-ops`, `/8hour-quality`, `/8hour-team`, `/8hour-lead`
+  - Project context file: `YELLY.md` → `8HOUR.md`
+  - Artifacts directory: `docs/yelly/` → `docs/8hour/`
+  - Internal state directory: `.yelly/` → `.8hour/`
+  - npm package: `yelly-master` → `8hour-master`
+  - CLI binaries: `yelly-config`, `yelly-update-check`, `yelly-repo-mode`, `yelly-lead-sync`, `yelly-lead-validate`, `yelly-lead-stats` → `8hour-*`
+  - Library paths: `lib/yelly-lead/*` → `lib/8hour-lead/*`
+  - Config file: `config/yelly-lead.yaml` → `config/8hour-lead.yaml` (and `yelly_lead:` / `yelly_md:` keys → `8hour_lead:` / `8hour_md:`)
+  - Frontmatter schema keys: `yelly_version` / `yelly_lead_version` → `8hour_version` / `8hour_lead_version`
+  - User config dir: `~/.yelly-master/` → `~/.8hour-master/`
+- **Upgrade path** for existing users: rename your project-local `YELLY.md` → `8HOUR.md`, move `docs/yelly/` → `docs/8hour/`, move `.yelly/` → `.8hour/`, move `~/.yelly-master/` → `~/.8hour-master/`, and re-run `./setup`. No automated migration — the rename is cosmetic and internal file formats are unchanged.
+
 ## [0.2.0] — 2026-04-13
 
 ### Added
