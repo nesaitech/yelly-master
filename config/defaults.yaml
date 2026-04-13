@@ -101,3 +101,26 @@ update:
   check_interval: 24h
   channel: stable
   notify: true
+
+# yelly-lead modules
+adr:
+  format: nygard
+  numbering: sequential-padded-4
+  latest_in_yelly_md: 5
+  require_alternatives: true
+
+debt:
+  export_to_tracker: auto
+  top_n_in_yelly_md: 5
+
+estimate:
+  default_confidence: 0.8
+  risk_factor_default: 1.2
+  bias_correction: true
+  min_history_for_calibration: 5
+
+risk:
+  severity_threshold_block: 20
+  severity_threshold_warn: 12
+  active_risks_in_yelly_md: 5
+  review_interval_days: 7
